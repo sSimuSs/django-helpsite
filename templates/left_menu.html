@@ -1,0 +1,115 @@
+{% load static %}
+<div class="ant-col main-menu ant-col-xs-0 ant-col-sm-0 ant-col-md-0 ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4">
+    <div style="position: fixed" class="ant-col-lg-6 ant-col-xl-5 ant-col-xxl-4">
+        <div class="" style="">
+            <section class="main-menu-inner">
+                <ul class="ant-menu aside-container menu-site ant-menu-light ant-menu-root ant-menu-inline" role="menu">
+                    {% for item in left_menu %}
+                        {% if item.has_subs %}
+                            <li class="ant-menu-submenu ant-menu-submenu-inline {% if item.opened %}ant-menu-submenu-open{% endif %} {% if item.is_selected %}ant-menu-item-selected{% endif %}" role="menuitem">
+                                <a href="/{{ item.slug }}" class="ant-menu-submenu-title" aria-expanded="true" aria-owns="Components$Menu" aria-haspopup="true" style="padding-left: 40px;{% if not item.is_selected %}color: #314659{% endif %}">
+                                            {{ item.title }}
+{#                                            <span class="menu-antd-components-count">63</span>#}
+                                        <i class="ant-menu-submenu-arrow"></i>
+                                </a>
+                                {% if item.opened %}
+                                <ul id="Components$Menu" class="ant-menu ant-menu-sub ant-menu-inline" role="menu">
+                                    <li class="ant-menu-item-group">
+                                        <ul class="ant-menu-item-group-list">
+                                            {% for sub_item in item.subs %}
+                                            <li class="ant-menu-item {% if sub_item.is_selected %}ant-menu-item-selected{% endif %}" role="menuitem" style="padding-left: 80px;">
+                                                <a href="/{{ sub_item.slug }}">
+                                                    <span>{{ sub_item.title }}</span>
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </li>
+
+
+                                </ul>
+                                {% endif %}
+                            </li>
+                        {% else %}
+                             <li class="ant-menu-item {% if item.is_selected %}ant-menu-item-selected{% endif %}" role="menuitem" style="padding-left: 40px;">
+                                <a href="/{{ item.slug }}">{{ item.title }}</a>
+                            </li>
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="drawer-wrapper ant-col-lg-0 ant-col-xl-0 ant-col-xxl-0">
+    <div iconchild="[object Object],[object Object]" tabindex="-1" class="drawer drawer-left">
+        <div class="drawer-mask"></div>
+        <div class="drawer-content-wrapper" style="transform: translateX(-100%);">
+            <div class="drawer-content">
+                <ul class="ant-menu aside-container menu-site ant-menu-light ant-menu-root ant-menu-inline" role="menu" style="min-width: 250px;">
+                    {% for item in left_menu %}
+                        {% if item.has_subs %}
+                            <li class="ant-menu-submenu ant-menu-submenu-inline {% if item.opened %}ant-menu-submenu-open{% endif %} {% if item.is_selected %}ant-menu-item-selected{% endif %}" role="menuitem">
+                                <a href="/{{ item.slug }}" class="ant-menu-submenu-title" aria-expanded="true" aria-owns="Components$Menu" aria-haspopup="true" style="padding-left: 40px;{% if not item.is_selected %}color: #314659{% endif %}">
+                                            {{ item.title }}
+{#                                            <span class="menu-antd-components-count">63</span>#}
+                                        <i class="ant-menu-submenu-arrow"></i>
+                                </a>
+                                {% if item.opened %}
+                                <ul id="Components$Menu" class="ant-menu ant-menu-sub ant-menu-inline" role="menu">
+                                    <li class="ant-menu-item-group">
+                                        <ul class="ant-menu-item-group-list">
+                                            {% for sub_item in item.subs %}
+                                            <li class="ant-menu-item {% if sub_item.is_selected %}ant-menu-item-selected{% endif %}" role="menuitem" style="padding-left: 80px;">
+                                                <a href="/{{ sub_item.slug }}">
+                                                    <span>{{ sub_item.title }}</span>
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </li>
+
+
+                                </ul>
+                                {% endif %}
+                            </li>
+                        {% else %}
+                             <li class="ant-menu-item {% if item.is_selected %}ant-menu-item-selected{% endif %}" role="menuitem" style="padding-left: 40px;">
+                                <a href="/{{ item.slug }}">{{ item.title }}</a>
+                            </li>
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                </ul>
+            </div>
+            <div class="drawer-handle" onclick="openMobileMenu(this)"><i class="drawer-handle-icon"></i></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var mobile_menu_opened = false;
+    function openMobileMenu(obj) {
+        var drawer_block = document.getElementsByClassName('drawer-left')[0];
+        var drawer_content_wrapper = document.getElementsByClassName('drawer-content-wrapper')[0];
+        if(mobile_menu_opened === false) {
+            var classString = drawer_block.className; // returns the string of all the classes for myDiv
+            var newClass = classString.concat(" drawer-open"); // Adds the class "main__section" to the string (notice the leading space)
+            drawer_block.className = newClass; // sets className to the new string
+            drawer_content_wrapper.style.transform = null;
+            mobile_menu_opened = true
+        }else{
+            drawer_block.className = drawer_block.className.replace(/\bdrawer-open\b/, "");
+            drawer_content_wrapper.style.transform = 'translateX(-100%)';
+            mobile_menu_opened = false
+        }
+    }
+</script>
